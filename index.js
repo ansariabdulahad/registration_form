@@ -44,22 +44,30 @@ showInformation(usersInfo);
 // Call and perform functions on form submit
 registerationForm.onsubmit = (e) => {
     e.preventDefault();
+    if (allinputs[0].value !== '' && allinputs[1].value !== '', allinputs[2].value !== '', allinputs[3].value !== '') {
 
-    let user = {
-        name: allinputs[0].value,
-        email: allinputs[1].value,
-        password: allinputs[2].value,
-        fatherName: allinputs[3].value,
-        address: textAreaEl.value
+        let user = {
+            name: allinputs[0].value,
+            email: allinputs[1].value,
+            password: allinputs[2].value,
+            fatherName: allinputs[3].value,
+            address: textAreaEl.value
+        }
+
+        usersInfo.push(user);
+        localStorage.setItem('user', JSON.stringify(usersInfo));
+        registerationForm.reset();
+        Swal.fire({
+            title: "Success !",
+            text: "Registration Completed",
+            icon: "success"
+        });
+        showInformation(usersInfo);
+    } else {
+        Swal.fire({
+            title: "Warning !",
+            text: "All fields are mandatory to fill.",
+            icon: "warning"
+        });
     }
-
-    usersInfo.push(user);
-    localStorage.setItem('user', JSON.stringify(usersInfo));
-    registerationForm.reset();
-    Swal.fire({
-        title: "Success !",
-        text: "Registration Completed",
-        icon: "success"
-    });
-    showInformation(usersInfo);
 }
