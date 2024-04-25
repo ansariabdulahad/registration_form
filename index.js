@@ -16,6 +16,10 @@ const showInformation = (users) => {
     users.forEach((item, index) => {
         tBodyInfo(item, index);
     })
+
+    // Delete the registration
+    let allDelBtn = tBodyEl.querySelectorAll('.del-btn');
+    deleteRegistration(allDelBtn);
 }
 
 // Make dynamic T-Body
@@ -29,13 +33,47 @@ const tBodyInfo = (item, index) => {
             <td>${item.fatherName}</td>
             <td>${item.address}</td>
             <td>
-                <button class="btn bg-success text-white">Edit</button>
-                <button class="btn btn-danger text-white">Delete</button>
+                <button class="btn p-1 px-2 bg-success text-white">
+                    <i class="fa fa-edit"></i>
+                </button>
+                <button class="btn p-1 px-2 btn-danger text-white del-btn">
+                    <i class="fa fa-trash"></i>
+                </button>
             </td>
         </tr>
     `;
 
     tBodyEl.innerHTML += tr;
+}
+
+// // Delete the registration function
+const deleteRegistration = (allDelBtn) => {
+    allDelBtn.forEach((element, index) => {
+        element.onclick = () => {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    usersInfo.splice(index, 1);
+                    localStorage.setItem("user", JSON.stringify(usersInfo));
+                    showInformation(usersInfo)
+                    console.log(usersInfo)
+
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                }
+            });
+        }
+    })
 }
 
 // Call the function when page loads
