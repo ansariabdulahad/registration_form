@@ -96,10 +96,21 @@ const editRegistration = (allEditBtn) => {
             let updateBtn = allTd[allTd.length - 1].querySelector('button');
             updateBtn.innerHTML = `<i class="fa fa-save"></i>`
             updateBtn.onclick = () => {
-                for (let i = 0; i < allTd.length - 1; i++) {
-                    allTd[i].contentEditable = false;
-                    allTd[i].style.border = 'inherit';
+                let objParam = {
+                    name: allTd[0].innerText,
+                    email: allTd[1].innerText,
+                    password: allTd[2].innerText,
+                    fatherName: allTd[3].innerText,
+                    address: allTd[4].innerText
                 }
+                usersInfo[index] = objParam;
+                showInformation(usersInfo);
+                localStorage.setItem('user', JSON.stringify(usersInfo));
+                Swal.fire({
+                    title: "Success !",
+                    text: "Data Updated Successfully",
+                    icon: "success"
+                });
             }
         }
     })
