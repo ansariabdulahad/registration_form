@@ -19,7 +19,9 @@ const showInformation = (users) => {
 
     // Delete the registration
     let allDelBtn = tBodyEl.querySelectorAll('.del-btn');
+    let allEditBtn = tBodyEl.querySelectorAll('.edit-btn');
     deleteRegistration(allDelBtn);
+    editRegistration(allEditBtn);
 }
 
 // Make dynamic T-Body
@@ -33,7 +35,7 @@ const tBodyInfo = (item, index) => {
             <td>${item.fatherName}</td>
             <td>${item.address}</td>
             <td>
-                <button class="btn p-1 px-2 bg-success text-white">
+                <button class="btn p-1 px-2 bg-success text-white edit-btn">
                     <i class="fa fa-edit"></i>
                 </button>
                 <button class="btn p-1 px-2 btn-danger text-white del-btn">
@@ -72,6 +74,33 @@ const deleteRegistration = (allDelBtn) => {
                     });
                 }
             });
+        }
+    })
+}
+
+// Edit the registration function
+const editRegistration = (allEditBtn) => {
+    allEditBtn.forEach((editBtn, index) => {
+        editBtn.onclick = () => {
+
+            let tr = editBtn.parentElement.parentElement;
+            let allTd = tr.querySelectorAll('td');
+
+            // For loop for alltds to update data in a row
+            for (let i = 0; i < allTd.length - 1; i++) {
+                allTd[i].contentEditable = true;
+                allTd[i].style.border = '2px solid red';
+            }
+
+            // update coding
+            let updateBtn = allTd[allTd.length - 1].querySelector('button');
+            updateBtn.innerHTML = `<i class="fa fa-save"></i>`
+            updateBtn.onclick = () => {
+                for (let i = 0; i < allTd.length - 1; i++) {
+                    allTd[i].contentEditable = false;
+                    allTd[i].style.border = 'inherit';
+                }
+            }
         }
     })
 }
