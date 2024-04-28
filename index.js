@@ -2,6 +2,8 @@ let registerationForm = document.querySelector('.registration-form');
 let allinputs = registerationForm.querySelectorAll('input');
 let textAreaEl = registerationForm.querySelector('textarea');
 let tBodyEl = document.querySelector('.t-body');
+let rBtn = document.querySelector('.r-btn');
+let uBtn = document.querySelector('.u-btn');
 
 let usersInfo = [];
 
@@ -86,6 +88,19 @@ const editRegistration = (allEditBtn) => {
             let tr = editBtn.parentElement.parentElement;
             let allTd = tr.querySelectorAll('td');
 
+            // Second way of updating code using form submission
+
+            // assign values to form
+            // allinputs[0].value = allTd[0].innerText;
+            // allinputs[1].value = allTd[1].innerText;
+            // allinputs[2].value = allTd[2].innerText;
+            // allinputs[3].value = allTd[3].innerText;
+            // textAreaEl.value = allTd[4].innerText;
+
+            // change form btn from register to update btn
+            // rBtn.classList.add('d-none');
+            // uBtn.classList.remove('d-none');
+
             // For loop for alltds to update data in a row
             for (let i = 0; i < allTd.length - 1; i++) {
                 allTd[i].contentEditable = true;
@@ -95,6 +110,7 @@ const editRegistration = (allEditBtn) => {
             // update coding
             let updateBtn = allTd[allTd.length - 1].querySelector('button');
             updateRegistration(updateBtn, allTd, index);
+            // updateRegistration(uBtn, allTd, index);
         }
     })
 }
@@ -110,9 +126,19 @@ const updateRegistration = (updateBtn, allTd, index) => {
             fatherName: allTd[3].innerText,
             address: allTd[4].innerText
         }
+        // let objParam = {
+        //     name: allinputs[0].value,
+        //     email: allinputs[1].value,
+        //     password: allinputs[2].value,
+        //     fatherName: allinputs[3].value,
+        //     address: textAreaEl.value
+        // }
         usersInfo[index] = objParam;
         showInformation(usersInfo);
         localStorage.setItem('user', JSON.stringify(usersInfo));
+        // change form btn from update to register btn
+        // rBtn.classList.remove('d-none');
+        // uBtn.classList.add('d-none');
         Swal.fire({
             title: "Success !",
             text: "Data Updated Successfully",
