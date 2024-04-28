@@ -94,26 +94,31 @@ const editRegistration = (allEditBtn) => {
 
             // update coding
             let updateBtn = allTd[allTd.length - 1].querySelector('button');
-            updateBtn.innerHTML = `<i class="fa fa-save"></i>`
-            updateBtn.onclick = () => {
-                let objParam = {
-                    name: allTd[0].innerText,
-                    email: allTd[1].innerText,
-                    password: allTd[2].innerText,
-                    fatherName: allTd[3].innerText,
-                    address: allTd[4].innerText
-                }
-                usersInfo[index] = objParam;
-                showInformation(usersInfo);
-                localStorage.setItem('user', JSON.stringify(usersInfo));
-                Swal.fire({
-                    title: "Success !",
-                    text: "Data Updated Successfully",
-                    icon: "success"
-                });
-            }
+            updateRegistration(updateBtn, allTd, index);
         }
     })
+}
+
+// Update registration
+const updateRegistration = (updateBtn, allTd, index) => {
+    updateBtn.innerHTML = `<i class="fa fa-save"></i>`
+    updateBtn.onclick = () => {
+        let objParam = {
+            name: allTd[0].innerText,
+            email: allTd[1].innerText,
+            password: allTd[2].innerText,
+            fatherName: allTd[3].innerText,
+            address: allTd[4].innerText
+        }
+        usersInfo[index] = objParam;
+        showInformation(usersInfo);
+        localStorage.setItem('user', JSON.stringify(usersInfo));
+        Swal.fire({
+            title: "Success !",
+            text: "Data Updated Successfully",
+            icon: "success"
+        });
+    }
 }
 
 // Call the function when page loads
